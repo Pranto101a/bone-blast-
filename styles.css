@@ -1,0 +1,416 @@
+/* ===================== বিস্ফোরক বিড়াল — স্টাইল ===================== */
+:root{
+  --bg:#0f1419;
+  --bg2:#161d26;
+  --panel:#1c2530;
+  --panel2:#243040;
+  --text:#eef3f8;
+  --muted:#92a0b3;
+  --line:#2b3744;
+  --green:#0a8f54;     /* বাংলাদেশ পতাকার সবুজ */
+  --green-d:#076b40;
+  --red:#e8453c;       /* পতাকার লাল বৃত্ত */
+  --red-d:#c23329;
+  --gold:#f4b740;
+  --blue:#3b82f6;
+  --purple:#9b59b6;
+  --shadow:0 10px 30px rgba(0,0,0,.45);
+  --radius:18px;
+}
+@media (prefers-color-scheme: light){
+  :root{
+    --bg:#eef2f4; --bg2:#e3e9ec; --panel:#ffffff; --panel2:#f3f6f8;
+    --text:#13202b; --muted:#5b6b7a; --line:#dbe3ea;
+    --shadow:0 10px 30px rgba(20,40,60,.12);
+  }
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;height:100%;}
+body{
+  font-family:\'Hind Siliguri\',system-ui,sans-serif;
+  background:url("assets/background.jpg") center/cover no-repeat fixed;
+  color:var(--text);
+  min-height:100%;
+  overscroll-behavior:none;
+}
+h1,h2,h3,.logo,.deck-label{font-family:'Baloo Da 2','Hind Siliguri',sans-serif;}
+#app{max-width:560px;margin:0 auto;min-height:100vh;position:relative;}
+
+/* ---------- স্ক্রিন ---------- */
+.screen{display:none;flex-direction:column;min-height:100vh;padding:18px;}
+.screen.active{display:flex;}
+
+/* ---------- বাটন ---------- */
+.btn{
+  border:none;border-radius:14px;padding:14px 18px;font-size:1rem;font-weight:600;
+  font-family:inherit;cursor:pointer;transition:transform .08s, filter .15s, background .15s;
+  color:#fff;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+}
+.btn:active{transform:scale(.97);}
+.btn-block{display:flex;width:100%;margin-top:10px;}
+.btn-primary{background:linear-gradient(135deg,var(--green),var(--green-d));box-shadow:0 6px 18px rgba(10,143,84,.35);}
+.btn-primary:hover{filter:brightness(1.08);}
+.btn-danger{background:linear-gradient(135deg,var(--red),var(--red-d));}
+.btn-ghost{background:var(--panel2);color:var(--text);border:1px solid var(--line);}
+.btn-link{background:transparent;color:var(--muted);font-weight:500;}
+.btn-link:hover{color:var(--text);}
+.btn-gold{background:linear-gradient(135deg,var(--gold),#d99a1e);color:#3a2a00;}
+.btn:disabled{opacity:.45;cursor:not-allowed;}
+
+.muted{color:var(--muted);font-size:.92rem;}
+
+/* ---------- সেটআপ ---------- */
+.setup-wrap{margin:auto;width:100%;display:flex;flex-direction:column;gap:18px;padding:14px 0;}
+.title-block{text-align:center;}
+.logo{font-size:3.4rem;line-height:1;}
+.title-block h1{font-size:2.3rem;margin:.2rem 0 0;letter-spacing:.5px;}
+.subtitle{margin:.2rem 0 0;color:var(--text);font-weight:600;}
+.tagline{margin:.35rem 0 0;color:var(--muted);font-size:.9rem;}
+.card-panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);}
+.card-panel h2{margin:0 0 4px;font-size:1.25rem;}
+#player-inputs{display:flex;flex-direction:column;gap:10px;margin:14px 0;}
+.player-input-row{display:flex;align-items:center;gap:10px;}
+.player-input-row .pnum{width:30px;height:30px;flex:0 0 auto;border-radius:50%;background:var(--panel2);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--gold);border:1px solid var(--line);}
+.player-input-row input{
+  flex:1;background:var(--panel2);border:1px solid var(--line);border-radius:12px;
+  padding:12px 14px;color:var(--text);font-size:1rem;font-family:inherit;
+}
+.player-input-row input:focus{outline:none;border-color:var(--green);}
+.setup-btns{display:flex;gap:10px;}
+.setup-btns .btn{flex:1;font-size:.9rem;padding:11px;}
+.footer-note{text-align:center;color:var(--muted);font-size:.82rem;margin:6px 0 0;}
+
+/* ---------- পাস স্ক্রিন ---------- */
+.pass-wrap{margin:auto;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;}
+.pass-emoji{font-size:3.6rem;}
+.pass-label{color:var(--muted);margin:0;font-size:1.05rem;}
+.pass-wrap h1{font-size:2.4rem;margin:.2rem 0;color:var(--gold);}
+#btn-pass-ready{margin-top:18px;max-width:360px;}
+
+/* ---------- গেম হেডার ---------- */
+.game-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+.header-left{display:flex;align-items:center;gap:8px;}
+.turn-badge{background:var(--red);color:#fff;font-size:.72rem;padding:3px 9px;border-radius:20px;font-weight:700;}
+.header-left strong{font-size:1.15rem;}
+.icon-btn{background:var(--panel2);border:1px solid var(--line);border-radius:12px;width:42px;height:42px;font-size:1.2rem;cursor:pointer;}
+.turn-info{min-height:20px;text-align:center;color:var(--gold);font-weight:600;font-size:.9rem;margin-bottom:8px;}
+
+/* ---------- বোর্ড / ডেক ---------- */
+.board{display:flex;justify-content:center;margin-bottom:10px;}
+.deck-zone{display:flex;gap:16px;align-items:center;}
+.deck-pile{
+  position:relative;width:96px;height:130px;border-radius:16px;cursor:pointer;
+  background:linear-gradient(135deg,#2a3a4d,#1a2530);border:2px solid var(--gold);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+  box-shadow:var(--shadow);transition:transform .1s;
+}
+.deck-pile:active{transform:scale(.96);}
+.deck-pile:disabled{opacity:.5;cursor:not-allowed;}
+.deck-back{font-size:2.4rem;}
+.deck-count{position:absolute;top:6px;right:8px;background:var(--gold);color:#3a2a00;font-weight:700;font-size:.78rem;padding:1px 7px;border-radius:10px;}
+.deck-label{font-size:.8rem;color:var(--gold);font-weight:600;}
+.discard-pile{
+  width:96px;height:130px;border-radius:16px;border:2px dashed var(--line);
+  display:flex;align-items:center;justify-content:center;text-align:center;padding:6px;
+  background:var(--panel);
+}
+.discard-empty{color:var(--muted);font-size:.78rem;}
+.discard-card{width:100%;height:100%;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;}
+.discard-card .em{font-size:2.2rem;}
+.discard-card .nm{font-size:.72rem;font-weight:700;margin-top:2px;text-align:center;padding:0 4px;}
+
+/* ---------- খেলোয়াড় স্ট্রিপ ---------- */
+.players-strip{display:flex;gap:8px;overflow-x:auto;padding:8px 2px;margin-bottom:6px;}
+.pchip{
+  flex:0 0 auto;background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  padding:8px 12px;text-align:center;min-width:78px;
+}
+.pchip.active{border-color:var(--gold);background:var(--panel2);}
+.pchip.dead{opacity:.4;}
+.pchip .pn{font-size:.85rem;font-weight:600;white-space:nowrap;}
+.pchip .pc{font-size:.74rem;color:var(--muted);}
+.pchip.dead .pn::after{content:" 💀";}
+
+/* ---------- হাত ---------- */
+.hand-zone{flex:1;margin-top:4px;}
+.hand-title{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;}
+.hand-title span:first-child{font-weight:700;}
+.hand-hint{color:var(--muted);font-size:.78rem;}
+.hand{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-content:flex-start;}
+.game-card{
+  width:84px;height:116px;border-radius:14px;cursor:pointer;position:relative;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  color:#fff;box-shadow:0 4px 12px rgba(0,0,0,.3);border:2px solid rgba(255,255,255,.18);
+  transition:transform .1s;padding:6px;text-align:center;
+}
+.game-card:active{transform:translateY(-4px) scale(1.03);}
+.game-card.selected{transform:translateY(-10px);border-color:var(--gold);box-shadow:0 0 0 3px var(--gold);}
+.game-card .gc-em{font-size:2.1rem;}
+.game-card .gc-nm{font-size:.72rem;font-weight:700;line-height:1.05;}
+.game-card .gc-badge{position:absolute;top:4px;right:5px;background:rgba(0,0,0,.35);border-radius:8px;font-size:.62rem;padding:1px 5px;}
+
+/* ---------- অ্যাকশন বার ---------- */
+.action-bar{position:sticky;bottom:0;padding-top:10px;background:linear-gradient(to top,var(--bg) 60%,transparent);}
+
+/* ---------- গেম ওভার ---------- */
+.over-wrap{margin:auto;text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;width:100%;max-width:380px;}
+.over-emoji{font-size:4rem;}
+.over-wrap h1{font-size:2.4rem;margin:.1rem 0;color:var(--gold);}
+
+/* ---------- মডাল ---------- */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;
+  z-index:50;padding:18px;backdrop-filter:blur(3px);
+}
+.modal-overlay.show{display:flex;}
+.modal{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  width:100%;max-width:440px;box-shadow:var(--shadow);max-height:88vh;display:flex;flex-direction:column;
+  animation:pop .18s ease;
+}
+@keyframes pop{from{transform:scale(.92);opacity:0;}to{transform:scale(1);opacity:1;}}
+.modal-head{padding:18px 20px 8px;font-size:1.2rem;font-weight:700;font-family:'Baloo Da 2',sans-serif;}
+.modal-body{padding:4px 20px 12px;overflow-y:auto;line-height:1.6;}
+.modal-actions{padding:8px 20px 20px;display:flex;flex-direction:column;gap:0;}
+.modal-actions .btn{margin-top:8px;}
+.modal-rules{max-width:520px;}
+
+/* মডাল ভেতরের কার্ড নির্বাচন */
+.pick-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:6px 0;}
+.future-row{display:flex;gap:12px;justify-content:center;margin:10px 0;}
+.future-card{width:80px;height:108px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;gap:4px;}
+.future-card .pos{position:absolute;}
+.future-slot{position:relative;text-align:center;}
+.future-slot .lbl{font-size:.72rem;color:var(--muted);margin-bottom:4px;}
+.choice-btn{width:100%;text-align:left;background:var(--panel2);border:1px solid var(--line);color:var(--text);
+  border-radius:12px;padding:13px 15px;margin-top:8px;cursor:pointer;font-family:inherit;font-size:.98rem;font-weight:600;}
+.choice-btn:hover{border-color:var(--gold);}
+.deck-insert{display:flex;flex-direction:column;gap:6px;margin-top:8px;}
+
+/* নিয়ম মডাল */
+#rules-body h3{color:var(--gold);margin:16px 0 6px;font-size:1.08rem;}
+#rules-body h3:first-child{margin-top:4px;}
+#rules-body p{margin:6px 0;}
+#rules-body ul{margin:6px 0;padding-left:20px;}
+#rules-body li{margin:5px 0;}
+.rule-card{display:flex;gap:12px;align-items:flex-start;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:8px 0;}
+.rule-card .rc-em{font-size:1.7rem;flex:0 0 auto;width:40px;text-align:center;}
+.rule-card .rc-nm{font-weight:700;}
+.rule-card .rc-ds{font-size:.9rem;color:var(--muted);}
+
+/* টোস্ট */
+.toast{
+  position:fixed;left:50%;bottom:90px;transform:translateX(-50%) translateY(20px);
+  background:var(--panel2);color:var(--text);border:1px solid var(--gold);
+  padding:12px 18px;border-radius:14px;font-weight:600;opacity:0;pointer-events:none;
+  transition:opacity .2s,transform .2s;z-index:60;max-width:90%;text-align:center;box-shadow:var(--shadow);
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+@media (max-width:380px){
+  .game-card{width:74px;height:104px;}
+  .deck-pile,.discard-pile{width:84px;height:116px;}
+}
+
+/* ===================== নতুন কম্পোনেন্ট ===================== */
+/* খেলোয়াড়ের ধরন বাটন */
+.ptype-btn{
+  flex:0 0 auto;background:var(--panel2);border:1px solid var(--line);color:var(--text);
+  border-radius:12px;padding:10px 12px;font-family:inherit;font-weight:600;font-size:.82rem;cursor:pointer;white-space:nowrap;
+}
+.ptype-btn.ai{border-color:var(--gold);color:var(--gold);}
+
+/* সেটিংস */
+.settings{margin:14px 0;border:1px solid var(--line);border-radius:12px;background:var(--panel2);}
+.settings summary{cursor:pointer;padding:12px 14px;font-weight:600;list-style:none;}
+.settings summary::-webkit-details-marker{display:none;}
+.settings[open] summary{border-bottom:1px solid var(--line);}
+.settings .setting-row{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;}
+.settings .muted.small{font-size:.8rem;padding:0 14px;margin:8px 0 4px;}
+.toggle{border:none;border-radius:20px;padding:7px 16px;font-family:inherit;font-weight:700;cursor:pointer;color:#fff;background:var(--green);}
+.toggle:not(.on){background:var(--line);color:var(--muted);}
+.count-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;padding:4px 14px 8px;}
+.count-item{display:flex;flex-direction:column;gap:3px;}
+.count-item label{font-size:.78rem;color:var(--muted);}
+.count-item input{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px;color:var(--text);font-family:inherit;font-size:.95rem;}
+.count-item input:focus{outline:none;border-color:var(--green);}
+#btn-reset-counts{padding:6px 14px;margin:0 0 10px;}
+
+/* লুকানো হাত (AI/অন্যের পালা) */
+.hidden-hand{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;}
+.card-back-mini{width:54px;height:76px;border-radius:10px;background:linear-gradient(135deg,#2a3a4d,#1a2530);
+  border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:1.4rem;}
+.ai-banner{text-align:center;background:var(--panel2);border:1px dashed var(--gold);border-radius:14px;
+  padding:14px;margin:8px 0;color:var(--gold);font-weight:600;}
+.ai-banner .dots::after{content:'';animation:dots 1.2s steps(4,end) infinite;}
+@keyframes dots{0%{content:'';}25%{content:'.';}50%{content:'..';}75%{content:'...';}}
+
+/* কার্ড অ্যাকশন মেনু — কার্ড প্রিভিউ */
+
+.sheet-card .sc-em{font-size:3rem;}
+.sheet-card .sc-nm{font-size:1rem;font-weight:800;font-family:'Baloo Da 2',sans-serif;}
+.sheet-desc{text-align:center;color:var(--muted);font-size:.95rem;margin-bottom:4px;}
+
+/* ===================== ভিজ্যুয়াল আপগ্রেড: ছবি, ব্যাকগ্রাউন্ড, অ্যানিমেশন, VFX ===================== */
+
+/* ক্যানভাস VFX লেয়ার */
+#fx-canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9999;}
+
+/* ব্যাকগ্রাউন্ড ছবি + ওভারলে */
+body{
+  background:
+    linear-gradient(180deg, rgba(10,14,20,.86), rgba(10,14,20,.92)),
+    url('assets/background.jpg');
+  background-size:auto, 720px auto;
+  background-attachment:fixed, fixed;
+  background-repeat:no-repeat, repeat;
+}
+@media (prefers-color-scheme: light){
+  body{
+    background:
+      linear-gradient(180deg, rgba(238,242,244,.82), rgba(227,233,236,.9)),
+      url('assets/background.jpg');
+    background-size:auto, 720px auto;
+    background-attachment:fixed, fixed;
+    background-repeat:no-repeat, repeat;
+  }
+}
+#app{position:relative;z-index:1;}
+
+/* ম্যাসকট ছবি */
+.mascot{
+  width:160px;height:160px;object-fit:cover;border-radius:50%;
+  border:4px solid var(--gold);background:#fff;margin:0 auto 6px;display:block;
+  box-shadow:0 8px 30px rgba(0,0,0,.4), 0 0 0 8px rgba(244,183,64,.12);
+  animation:floaty 3.4s ease-in-out infinite;
+}
+.mascot-win{width:140px;height:140px;animation:pop-in .5s ease, floaty 3.4s ease-in-out infinite .5s;}
+@keyframes floaty{0%,100%{transform:translateY(0) rotate(-1.5deg);}50%{transform:translateY(-10px) rotate(1.5deg);}}
+
+.title-block h1{animation:title-in .6s ease both;}
+@keyframes title-in{from{opacity:0;transform:translateY(12px) scale(.92);}to{opacity:1;transform:none;}}
+
+/* স্ক্রিন ট্রানজিশন */
+.screen.active{animation:screen-in .35s ease both;}
+@keyframes screen-in{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+
+/* কার্ড ডিল-ইন (হাত রেন্ডার হলে) */
+.game-card{animation:deal-in .38s cubic-bezier(.2,.9,.3,1.3) both;}
+@keyframes deal-in{from{opacity:0;transform:translateY(26px) rotate(-6deg) scale(.8);}to{opacity:1;transform:none;}}
+/* কার্ডের উপর চকচকে শাইন */
+.game-card::after{
+  content:'';position:absolute;inset:0;border-radius:14px;pointer-events:none;
+  background:linear-gradient(135deg, rgba(255,255,255,.28) 0%, rgba(255,255,255,0) 42%);
+}
+.game-card .gc-em{filter:drop-shadow(0 2px 3px rgba(0,0,0,.35));}
+
+/* ডিসকার্ড কার্ড পপ-ইন */
+.discard-card{animation:pop-in .32s cubic-bezier(.2,.9,.3,1.4) both;}
+@keyframes pop-in{from{opacity:0;transform:scale(.5) rotate(-10deg);}to{opacity:1;transform:none;}}
+
+/* ডেক টানার পালস */
+.deck-pile.pulse{animation:deck-pulse .35s ease;}
+@keyframes deck-pulse{0%{transform:scale(1);}40%{transform:scale(1.12);box-shadow:0 0 28px var(--gold);}100%{transform:scale(1);}}
+.deck-pile .deck-back{animation:cat-wiggle 4s ease-in-out infinite;}
+@keyframes cat-wiggle{0%,100%{transform:rotate(0);}25%{transform:rotate(-8deg);}75%{transform:rotate(8deg);}}
+
+/* খেলোয়াড় চিপ সক্রিয় গ্লো */
+.pchip.active{animation:chip-glow 1.8s ease-in-out infinite;}
+@keyframes chip-glow{0%,100%{box-shadow:0 0 0 rgba(244,183,64,0);}50%{box-shadow:0 0 14px rgba(244,183,64,.5);}}
+
+/* শিট কার্ড প্রিভিউ ভাসমান */
+.sheet-card{animation:floaty 3s ease-in-out infinite, pop-in .3s ease both;}
+.sheet-card::after{content:'';position:absolute;inset:0;border-radius:18px;
+  background:linear-gradient(135deg, rgba(255,255,255,.3), transparent 45%);}
+
+/* টার্ন-ইনফো হালকা পালস */
+.turn-info:not(:empty){animation:ti 1.6s ease-in-out infinite;}
+@keyframes ti{0%,100%{opacity:.7;}50%{opacity:1;}}
+
+/* মোশন কমানোর পছন্দ থাকলে অ্যানিমেশন বন্ধ */
+@media (prefers-reduced-motion: reduce){
+  *{animation:none !important;}
+}
+
+.gc-nm-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 4px 0;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+.discard-card .gc-nm-top, .future-card .gc-nm-top {
+  font-size: 12px;
+  padding: 2px 0;
+}
+
+.game-card, .discard-card, .future-card, .steal-card {
+  position: relative;
+  background-color: #fff !important; /* white border around the card */
+  border: 4px solid #fff !important;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  overflow: hidden;
+}
+
+/* The actual image should be inside, we currently have it as background-image on the card itself */
+/* So let's adjust it by adding an inner box shadow or pseudo-element to create a border */
+.game-card::after, .discard-card::after, .future-card::after, .steal-card::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border: 4px solid #fff;
+  border-radius: 6px;
+  pointer-events: none;
+}
+
+.gc-nm-top {
+  position: absolute;
+  bottom: 0; /* Move text to bottom */
+  top: auto;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  color: #000;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 800;
+  padding: 8px 0;
+  border-top: 2px solid #000;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  text-transform: uppercase;
+}
+
+.discard-card .gc-nm-top, .future-card .gc-nm-top {
+  font-size: 11px;
+  padding: 4px 0;
+  border-top: 1px solid #000;
+}
+
+.sheet-card {
+  position: relative;
+  width: 140px;
+  height: 200px;
+  margin: 0 auto 16px;
+  background-color: #fff !important; 
+  border: 4px solid #fff !important;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  overflow: hidden;
+}
+.sheet-card::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border: 4px solid #fff;
+  border-radius: 6px;
+  pointer-events: none;
+}

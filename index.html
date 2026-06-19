@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>বোন ব্লাস্ট 💣🐱 — Bangladesh Version</title>
+  <meta name="description" content="Exploding Kittens-এর সম্পূর্ণ বাংলা সংস্করণ। Pass & Play + কম্পিউটার খেলোয়াড় + সাউন্ড।" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Baloo+Da+2:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <canvas id="fx-canvas"></canvas>
+  <div id="app">
+
+    <!-- ====================== সেটআপ স্ক্রিন ====================== -->
+    <section id="screen-setup" class="screen active">
+      <div class="setup-wrap">
+        <div class="title-block">
+          <img src="assets/mascot.jpg" class="mascot" alt="বোন ব্লাস্ট ম্যাসকট" />
+          <h1>বোন ব্লাস্ট</h1>
+          <p class="subtitle">Exploding Kittens — বাংলাদেশ সংস্করণ</p>
+          <p class="tagline">একই ডিভাইসে পালা করে খেলো • কম্পিউটারের সাথেও খেলা যায়</p>
+        </div>
+
+        <div class="card-panel">
+          <h2>খেলোয়াড়</h2>
+          <p class="muted">২ থেকে ৫ জন। প্রতিটি খেলোয়াড়কে 🧑 মানুষ বা 🤖 কম্পিউটার বানাতে পারো।</p>
+          <div id="player-inputs"></div>
+          <div class="setup-btns">
+            <button id="btn-add-player" class="btn btn-ghost">➕ যোগ করো</button>
+            <button id="btn-remove-player" class="btn btn-ghost">➖ বাদ দাও</button>
+          </div>
+
+          <details class="settings">
+            <summary>⚙️ সেটিংস ও কার্ড কাস্টমাইজেশন</summary>
+            <div class="setting-row">
+              <span>🔊 শব্দ (সাউন্ড)</span>
+              <button id="toggle-sound" class="toggle on" data-on="1">চালু</button>
+            </div>
+            <p class="muted small">প্রতিটি কার্ড ডেকে কয়টি থাকবে (খালি রাখলে ডিফল্ট ব্যবহার হবে):</p>
+            <div class="count-grid" id="count-grid"></div>
+            <p class="muted small">💣 বোন ব্লাস্ট সবসময় (খেলোয়াড় সংখ্যা − ১) টি থাকে — তাই একজনই শেষে টেকে।</p>
+            <button id="btn-reset-counts" class="btn btn-link">↺ ডিফল্ট সংখ্যায় ফিরে যাও</button>
+          </details>
+
+          <button id="btn-start" class="btn btn-primary btn-block">🎮 খেলা শুরু করো</button>
+          <button id="btn-rules-setup" class="btn btn-link btn-block">📖 নিয়মকানুন ও কীভাবে খেলবেন</button>
+        </div>
+        <p class="footer-note">তৈরি ভালোবাসা দিয়ে — বাংলায় 🇧🇩</p>
+      </div>
+    </section>
+
+    <!-- ====================== পাস স্ক্রিন ====================== -->
+    <section id="screen-pass" class="screen">
+      <div class="pass-wrap">
+        <div class="pass-emoji">📱➡️</div>
+        <p class="pass-label">ডিভাইসটি দিন</p>
+        <h1 id="pass-player-name">—</h1>
+        <p id="pass-sub" class="muted">তোমার পালা! অন্যরা যেন তোমার হাত না দেখে।</p>
+        <button id="btn-pass-ready" class="btn btn-primary btn-block">👀 আমি প্রস্তুত — আমার হাত দেখাও</button>
+      </div>
+    </section>
+
+    <!-- ====================== গেম স্ক্রিন ====================== -->
+    <section id="screen-game" class="screen">
+      <header class="game-header">
+        <div class="header-left">
+          <span class="turn-badge" id="turn-badge">পালা</span>
+          <strong id="current-player">—</strong>
+        </div>
+        <div class="header-right">
+          <button id="btn-sound-game" class="icon-btn" title="শব্দ">🔊</button>
+          <button id="btn-rules-game" class="icon-btn" title="নিয়ম">📖</button>
+        </div>
+      </header>
+
+      <div class="turn-info" id="turn-info"></div>
+
+      <div class="board">
+        <div class="deck-zone">
+          <button id="deck-pile" class="deck-pile">
+            <span class="deck-back">🐱</span>
+            <span class="deck-count" id="deck-count">0</span>
+            <span class="deck-label">টানো</span>
+          </button>
+          <div class="discard-pile" id="discard-pile">
+            <span class="discard-empty">খেলা কার্ড</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="players-strip" id="players-strip"></div>
+
+      <div class="hand-zone">
+        <div class="hand-title">
+          <span id="hand-owner">তোমার কার্ড</span>
+          <span class="hand-hint">কার্ডে চাপ দিয়ে খেলো</span>
+        </div>
+        <div class="hand" id="hand"></div>
+      </div>
+
+      <div class="action-bar">
+        <button id="btn-draw" class="btn btn-primary btn-block">🃏 কার্ড টেনে পালা শেষ করো</button>
+      </div>
+    </section>
+
+    <!-- ====================== গেম ওভার স্ক্রিন ====================== -->
+    <section id="screen-over" class="screen">
+      <div class="over-wrap">
+        <img src="assets/mascot.jpg" class="mascot mascot-win" alt="বিজয়ী ম্যাসকট" />
+        <div class="over-emoji">🏆</div>
+        <p class="muted">বিজয়ী</p>
+        <h1 id="winner-name">—</h1>
+        <p class="muted">সবাই বিস্ফোরিত — শুধু একজন টিকে গেছে!</p>
+        <button id="btn-play-again" class="btn btn-primary btn-block">🔄 আবার খেলো</button>
+        <button id="btn-new-setup" class="btn btn-ghost btn-block">⚙️ নতুন খেলোয়াড় সেট করো</button>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ====================== মডাল (সাধারণ + কার্ড অ্যাকশন) ====================== -->
+  <div id="modal-overlay" class="modal-overlay">
+    <div class="modal" id="modal-box">
+      <div class="modal-head" id="modal-title">—</div>
+      <div class="modal-body" id="modal-body"></div>
+      <div class="modal-actions" id="modal-actions"></div>
+    </div>
+  </div>
+
+  <!-- ====================== নিয়ম মডাল ====================== -->
+  <div id="rules-overlay" class="modal-overlay">
+    <div class="modal modal-rules">
+      <div class="modal-head">📖 নিয়মকানুন ও কীভাবে খেলবেন</div>
+      <div class="modal-body" id="rules-body"></div>
+      <div class="modal-actions">
+        <button id="btn-close-rules" class="btn btn-primary btn-block">বুঝেছি, বন্ধ করো</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- টোস্ট -->
+  <div id="toast" class="toast"></div>
+
+  <script src="fx.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
